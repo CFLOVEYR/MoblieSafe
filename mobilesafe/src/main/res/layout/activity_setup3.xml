@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:tofirst="http://schemas.android.com/apk/res/com.tofirst.mobilesafe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@style/TitleTheme"
+        android:text="3. 设置安全号码" />
+
+    <TextView
+        style="@style/ContentTheme"
+        android:text="SIM卡变更后" />
+
+    <TextView
+        style="@style/ContentTheme"
+        android:gravity="center_vertical"
+        android:text="报警短信回发给安全号码" />
+
+    <EditText
+        android:id="@+id/et_contact_safe"
+        style="@style/ContentTheme"
+        android:gravity="center_vertical"
+        android:hint="请输入或者选择安全号码" />
+    <Button 
+        android:onClick="select_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择联系人"
+        android:textColor="@color/black"
+		android:gravity="center"
+		android:textSize="18sp"
+		android:background="@drawable/button_selector_setup3"
+        />
+   <LinearLayout 
+       android:layout_width="match_parent"
+       android:layout_height="0.2dp"
+       android:background="@color/gray"
+       ></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/presence_offline" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/presence_offline" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/presence_online" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/presence_offline" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="92dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/setup3" />
+        <Button 
+            style="@style/PreviousButtonTheme"
+            android:text="上一步"
+            />
+
+        <Button
+            style="@style/NextButtonTheme"
+            android:text="下一步" />
+
+    </RelativeLayout>
+
+</LinearLayout>

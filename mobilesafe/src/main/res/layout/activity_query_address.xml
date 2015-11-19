@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView 
+        android:text="手机归属地查询"
+        style="@style/TitleTheme"
+        />
+
+    <EditText
+        android:id="@+id/et_query_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入查询的手机号码"
+        android:inputType="number" />
+
+    <Button
+        android:onClick="queryAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:text="查询"/>
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+		android:text="查询结果"
+		android:id="@+id/tv_query_address_result"
+        />
+
+</LinearLayout>

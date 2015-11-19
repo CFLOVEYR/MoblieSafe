@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+          android:drawable="@drawable/btn_green_pressed" /> <!-- pressed 按钮是否按下-->
+    <item android:state_focused="true"
+          android:drawable="@drawable/btn_green_pressed" /> <!-- focused 按钮是否获得焦点-->
+<!--     <item android:state_hovered="true"
+          android:drawable="@drawable/button_focused" /> hovered 用户在按钮上一直按着玩 -->
+    <item android:drawable="@drawable/btn_green_normal" /> <!-- default -->
+</selector>

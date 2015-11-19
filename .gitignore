@@ -1,0 +1,13 @@
+/.idea
+/.gradle
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/app/app.iml
+/mobilesafe/build
+/mobilesafe/mobilesafe.iml
+/StudyLifeTime.iml
+/build
+/captures
