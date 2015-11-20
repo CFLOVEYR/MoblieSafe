@@ -14,6 +14,7 @@ import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -117,9 +118,17 @@ public class AddressService extends Service {
 		params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 				| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
 				| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+		/**
+		 * 将重心位置移动到左上方（0,0），而不是默认的位置
+		 */
+		params.gravity= Gravity.TOP+Gravity.LEFT;
 		params.format = PixelFormat.TRANSLUCENT;
 		params.type = WindowManager.LayoutParams.TYPE_TOAST;
 		params.setTitle("Toast");
+		final int lastX=mpre.getInt("lastX",0);
+		final int lastY=mpre.getInt("lastY",0);
+		params.x=lastX;
+		params.y=lastY;
 		view = View.inflate(this, R.layout.toast_adress_item, null);
 		int[] toast_styles = { R.drawable.call_locate_white,
 				R.drawable.call_locate_orange, R.drawable.call_locate_blue,
