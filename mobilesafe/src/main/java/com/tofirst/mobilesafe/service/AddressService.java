@@ -15,6 +15,7 @@ import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -35,6 +36,10 @@ public class AddressService extends Service {
 	private IntentFilter filter;
 	private WindowManager mWM;
 	private View view;
+	private int startX;
+	private int startY;
+	private int winwidth;
+	private int height;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -112,18 +117,29 @@ public class AddressService extends Service {
 	// 自定义Toast，修改系统原生的东西
 	public void showToast(String address) {
 		mWM = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-		WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+		winwidth = mWM.getDefaultDisplay().getWidth();
+		height = mWM.getDefaultDisplay().getHeight();
+		final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
 		params.height = WindowManager.LayoutParams.WRAP_CONTENT;
 		params.width = WindowManager.LayoutParams.WRAP_CONTENT;
 		params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-				| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+				/**
+				 * FLAG_NOT_TOUCHABLE 表示不能被触摸
+				 * 需要注释这句话，不能被触摸。
+				 */
+//				| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
 				| WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 		/**
 		 * 将重心位置移动到左上方（0,0），而不是默认的位置
 		 */
 		params.gravity= Gravity.TOP+Gravity.LEFT;
 		params.format = PixelFormat.TRANSLUCENT;
-		params.type = WindowManager.LayoutParams.TYPE_TOAST;
+		/**
+		 * 需要把他的权限调高，TYPE_TOAST只是一个短暂的，需要设置为TYPE_PHONE类型的
+		 *    需要添加权限
+		 *     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+		 */
+		params.type = WindowManager.LayoutParams.TYPE_PHONE;
 		params.setTitle("Toast");
 		final int lastX=mpre.getInt("lastX",0);
 		final int lastY=mpre.getInt("lastY",0);
@@ -134,10 +150,52 @@ public class AddressService extends Service {
 				R.drawable.call_locate_orange, R.drawable.call_locate_blue,
 				R.drawable.call_locate_gray, R.drawable.call_locate_green };
 		TextView tv = (TextView) view.findViewById(R.id.tv_toast_adress);
-		int style_num=mpre.getInt("Toast_Style", 0);
+		int style_num = mpre.getInt("Toast_Style", 0);
 		view.setBackgroundResource(toast_styles[style_num]);
 		tv.setText(address);
 		mWM.addView(view, params);
+		/**
+		 *  触发拖动事件
+		 */
+		view.setOnTouchListener(new View.OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View view, MotionEvent motionEvent) {
+				switch (motionEvent.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						break;
+					case MotionEvent.ACTION_MOVE:
+						//获得移动后的坐标
+						int endX = (int) motionEvent.getRawX();
+						int endY = (int) motionEvent.getRawY();
+						//改变坐标
+						params.x = endX;
+						params.y = endY;
+						if (params.x<0){
+							params.x=0;
+						}
+						if (params.y<0){
+							params.y=0;
+						}
+						if (params.x>winwidth-view.getWidth()){
+							params.x=winwidth-view.getWidth();
+						}
+						if (params.y>height-view.getHeight()){
+							params.y=height-view.getHeight();
+						}
+						//更新内容,而不是添加内容了
+						mWM.updateViewLayout(view, params);
+						break;
+					case MotionEvent.ACTION_UP:
+						//保存坐标
+						mpre.edit().putInt("lastX", params.x).commit();
+						mpre.edit().putInt("lastY", params.y).commit();
+						break;
+				}
+
+				return false;//设置为false，表示处理完毕让下边的继续处理
+			}
+		});
 	}
 
 }
