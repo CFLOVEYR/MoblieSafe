@@ -47,6 +47,10 @@ public class TestBlackNumberDao extends AndroidTestCase {
         BlackNumberDao dao= new BlackNumberDao(mContext);
         dao.queryAll();
     }
+    public void testqueryPage(){
+        BlackNumberDao dao= new BlackNumberDao(mContext);
+        dao.queryPage(10,20);
+    }
 
 
 

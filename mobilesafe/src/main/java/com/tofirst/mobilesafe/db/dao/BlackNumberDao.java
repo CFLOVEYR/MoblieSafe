@@ -121,4 +121,43 @@ public class BlackNumberDao {
         SystemClock.sleep(3000);
         return  list;
     }
+
+    /**
+     * 分页查询数据
+     * @param pageNumber
+     * @param pageSize
+     * limit 限制一次取多少个数据
+     * offset 表示从哪个数据开始取
+     * @return 要查询的数据
+     */
+    public List<BlackNumberInfo> queryPage(int pageNumber,int pageSize){
+        List<BlackNumberInfo> list=new ArrayList<BlackNumberInfo>();
+        SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select number,mode from blacknumber limit ? offset ?",
+                new String[]{String.valueOf(pageSize),String.valueOf(pageSize*pageNumber)});
+        while (cursor.moveToNext()){
+            BlackNumberInfo info=new BlackNumberInfo();
+            info.setNumber(cursor.getString(0));
+            info.setMode(cursor.getString(1));
+            list.add(info);
+        }
+        cursor.close();
+        db.close();
+//        SystemClock.sleep(3000);
+        return  list;
+    }
+
+    /**
+     * 查询一共有多少条数据的方法
+     * @return 返回的是数据的数目
+     */
+    public int queryCount(){
+        SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select count(*) from blacknumber", null);
+        cursor.moveToNext();
+        int num=cursor.getInt(0);
+        cursor.close();
+        db.close();
+        return  num;
+    }
 }
