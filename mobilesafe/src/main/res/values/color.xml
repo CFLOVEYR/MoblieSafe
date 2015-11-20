@@ -4,5 +4,6 @@
     <color name="gray">#a000</color>
     <color name="red">#f00</color>
     <color name="waterpin">#FFCCCC</color>
+    <color name="half_translucent">#5000</color>
     
 </resources>

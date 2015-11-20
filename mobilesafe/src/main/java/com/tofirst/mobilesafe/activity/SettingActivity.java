@@ -14,6 +14,7 @@ import com.tofirst.mobilesafe.R;
 import com.tofirst.mobilesafe.service.AddressService;
 import com.tofirst.mobilesafe.utils.ServiceStatusUtils;
 import com.tofirst.mobilesafe.view.SettingAddressItemView;
+import com.tofirst.mobilesafe.view.SettingToastLocationItemView;
 import com.tofirst.mobilesafe.view.SettingToastStyleItemView;
 import com.tofirst.mobilesafe.view.SettingUpdateItemView;
 
@@ -21,6 +22,7 @@ public class SettingActivity extends Activity {
 	private SettingUpdateItemView siv;
 	private SettingAddressItemView sav;
 	private SettingToastStyleItemView stsv;
+	private SettingToastLocationItemView stlv;
 	private SharedPreferences pref;
 	private String[] items = new String[] { "半透明", "活力橙", "卫士蓝", "金属灰", "苹果绿" };
 
@@ -84,6 +86,18 @@ public class SettingActivity extends Activity {
 				showSingleDialog();
 			}
 		});
+
+
+		/**
+		 * Toast位置的点击事件
+		 */
+		stlv.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// 弹出对话框
+				startActivity(new Intent(SettingActivity.this,ToastLocationActivity.class));
+			}
+		});
 	}
 
 	protected void showSingleDialog() {
@@ -111,6 +125,14 @@ public class SettingActivity extends Activity {
 		InitUpdateView();
 		InitAddressView();
 		InitToastStyleView();
+		InitToastLocationView();
+	}
+	private void InitToastLocationView() {
+		// 自定义样式的初始化
+		stlv = (SettingToastLocationItemView) findViewById(R.id.rl_setting_toast_location);
+		// 初始化自动更新属性
+		stlv.setTitle(stlv.mtitle);
+		stlv.setText("设置归属地提示框的显示位置");
 	}
 
 	private void InitToastStyleView() {

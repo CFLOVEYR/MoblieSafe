@@ -28,5 +28,10 @@
         tofirst:title="归属地提示框风格"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <com.tofirst.mobilesafe.view.SettingToastLocationItemView
+        android:id="@+id/rl_setting_toast_location"
+        tofirst:title="归属地提示框位置"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

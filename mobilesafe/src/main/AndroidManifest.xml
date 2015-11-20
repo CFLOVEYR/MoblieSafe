@@ -23,13 +23,15 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
 
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.tofirst.mobilesafe.activity.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,9 +39,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.tofirst.mobilesafe.activity.HomeAcivity" >
+        <activity android:name=".activity.HomeAcivity" >
         </activity>
-        <activity android:name="com.tofirst.mobilesafe.activity.SettingActivity" >
+        <activity android:name=".activity.SettingActivity" >
         </activity>
         <activity android:name=".activity.LostFindActivity" >
         </activity>
@@ -64,41 +66,48 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        
-      <!--       <receiver android:name=".receiver.OutCallReceiver" >
+
+        <!--
+                 <receiver android:name=".receiver.OutCallReceiver" >
                 <intent-filter>
                     <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
                 </intent-filter>
-            </receiver> -->
-            
-            <receiver android:name=".receiver.SmsRecevier" >
-                <!-- 把接收短信的权限设置为整数的最大值 -->
-                <intent-filter android:priority="2147483647" >
-
-                    <!-- 必须手写，Android默认还有，但是不会提示的 -->
-                    <action android:name="android.provider.Telephony.SMS_RECEIVED" />
-                </intent-filter>
             </receiver>
-            <!-- 实现一键锁屏，一键清除数据的receiver 需要改名字，介绍，还有多写一个xml -->
-            <receiver
-                android:name=".receiver.AdminReceiver"
-                android:description="@string/sample_device_admin_description"
-                android:label="@string/sample_device_admin"
-                android:permission="android.permission.BIND_DEVICE_ADMIN" >
-                <meta-data
-                    android:name="android.app.device_admin"
-                    android:resource="@xml/device_admin_sample" />
+        -->
 
-                <intent-filter>
-                    <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-                </intent-filter>
-            </receiver>
+        <receiver android:name=".receiver.SmsRecevier" >
 
-            <!-- service -->
-            <service android:name="com.tofirst.mobilesafe.service.LocationService" >
-            </service>
-            <service android:name="com.tofirst.mobilesafe.service.AddressService" >
-            </service>
+            <!-- 把接收短信的权限设置为整数的最大值 -->
+            <intent-filter android:priority="2147483647" >
+
+                <!-- 必须手写，Android默认还有，但是不会提示的 -->
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+        <!-- 实现一键锁屏，一键清除数据的receiver 需要改名字，介绍，还有多写一个xml -->
+        <receiver
+            android:name=".receiver.AdminReceiver"
+            android:description="@string/sample_device_admin_description"
+            android:label="@string/sample_device_admin"
+            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_sample" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- service -->
+        <service android:name=".service.LocationService" >
+        </service>
+        <service android:name=".service.AddressService" >
+        </service>
+
+        <activity android:name=".activity.ToastLocationActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
     </application>
 
 </manifest>
