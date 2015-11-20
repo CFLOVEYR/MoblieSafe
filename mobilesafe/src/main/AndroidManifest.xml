@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tofirst.mobilesafe"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="10"
@@ -30,37 +30,36 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.SplashActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeAcivity"></activity>
-        <activity android:name=".activity.SettingActivity"></activity>
-        <activity android:name=".activity.LostFindActivity"></activity>
-        <activity android:name=".activity.Setup1Activity"></activity>
-        <activity android:name=".activity.Setup2Activity"></activity>
-        <activity android:name=".activity.Setup3Activity"></activity>
-        <activity android:name=".activity.Setup4Activity"></activity>
-        <activity android:name=".activity.ReadContactActivity"></activity>
-        <activity android:name=".activity.AdvanceToolsActivity"></activity>
-        <activity android:name=".activity.QueryAddressActivity"></activity>
+        <activity android:name=".activity.HomeAcivity" />
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.LostFindActivity" />
+        <activity android:name=".activity.Setup1Activity" />
+        <activity android:name=".activity.Setup2Activity" />
+        <activity android:name=".activity.Setup3Activity" />
+        <activity android:name=".activity.Setup4Activity" />
+        <activity android:name=".activity.ReadContactActivity" />
+        <activity android:name=".activity.AdvanceToolsActivity" />
+        <activity android:name=".activity.QueryAddressActivity" />
         <activity
             android:name=".activity.ToastLocationActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-        <activity android:name=".activity.RoketActivity"
-            ></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".activity.RoketActivity" />
         <activity
             android:name=".activity.RoketBackgroundActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!-- receier -->
-        <receiver android:name=".receiver.BootCheckSimRecevier">
+        <receiver android:name=".receiver.BootCheckSimRecevier" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -74,10 +73,10 @@
             </receiver>
         -->
 
-        <receiver android:name=".receiver.SmsRecevier">
+        <receiver android:name=".receiver.SmsRecevier" >
 
             <!-- 把接收短信的权限设置为整数的最大值 -->
-            <intent-filter android:priority="2147483647">
+            <intent-filter android:priority="2147483647" >
 
                 <!-- 必须手写，Android默认还有，但是不会提示的 -->
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
@@ -88,7 +87,7 @@
             android:name=".receiver.AdminReceiver"
             android:description="@string/sample_device_admin_description"
             android:label="@string/sample_device_admin"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            android:permission="android.permission.BIND_DEVICE_ADMIN" >
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/device_admin_sample" />
@@ -99,11 +98,12 @@
         </receiver>
 
         <!-- service -->
-        <service android:name=".service.LocationService"></service>
-        <service android:name=".service.AddressService"></service>
-        <service android:name=".service.RoketService"></service>
+        <service android:name=".service.LocationService" />
+        <service android:name=".service.AddressService" />
+        <service android:name=".service.RoketService" />
 
-
+        <activity android:name=".activity.CallSmsSafeActivity" >
+        </activity>
     </application>
 
 </manifest>
