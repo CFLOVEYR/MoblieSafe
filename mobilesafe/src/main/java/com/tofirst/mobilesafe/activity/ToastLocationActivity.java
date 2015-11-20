@@ -3,12 +3,11 @@ package com.tofirst.mobilesafe.activity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tofirst.mobilesafe.R;
 
@@ -20,6 +19,8 @@ public class ToastLocationActivity extends Activity {
     private SharedPreferences mpre;
     private int width;
     private int height;
+    //设置双击事件的次数，点击多少次触发
+    long[] mHits = new long[2];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +30,35 @@ public class ToastLocationActivity extends Activity {
         mpre = getSharedPreferences("config", MODE_PRIVATE);
         width = getWindowManager().getDefaultDisplay().getWidth();
         height = getWindowManager().getDefaultDisplay().getHeight();
-        final int lastX=mpre.getInt("lastX",0);
-            int lastY=mpre.getInt("lastY",0);
+        final int lastX = mpre.getInt("lastX", 0);
+        final int lastY = mpre.getInt("lastY", 0);
         //初始化的时候绘制
 //        textView.layout(lastX,lastY,lastX+textView.getWidth(),lastY+textView.getHeight());
         /**
          *    onMeasure(测量) ，onLayout(安放位置)， onDraw(绘制)
          */
-        RelativeLayout.LayoutParams layoutParams= (RelativeLayout.LayoutParams) textView.getLayoutParams();//获取布局对象
-        layoutParams.leftMargin=lastX;//左边距
-        layoutParams.topMargin=lastY;//上边距
+        final RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) textView.getLayoutParams();//获取布局对象
+        layoutParams.leftMargin = lastX;//左边距
+        layoutParams.topMargin = lastY;//上边距
         chekText(lastY);        //上下任意位置的文本消失显示的判断
         textView.setLayoutParams(layoutParams);
+        //点击事件
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /**
+                 *        判断是否双击方法的调用
+                 */
+                System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+                mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+                if (mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
+                    textView.layout(width / 2 - textView.getWidth() / 2,
+                            textView.getTop(), width / 2 + textView.getWidth() / 2,
+                            textView.getBottom());
+                }
+            }
+        });
+
 
         /**
          *  触发拖动事件
@@ -69,7 +87,7 @@ public class ToastLocationActivity extends Activity {
                         int t = (int) (textView.getTop() + dy);
                         int b = (int) (textView.getBottom() + dy);
                         //检查坐标的合理性，不然展示框超出界面
-                        if (l<0||r>width||t<0||b>height){
+                        if (l < 0 || r > width || t < 0 || b > height) {
                             break;
                         }
                         //上下任意位置的文本消失显示的判断
@@ -87,16 +105,16 @@ public class ToastLocationActivity extends Activity {
                         break;
                 }
 
-                return false;
+                return false;//设置为false，表示处理完毕让下边的继续处理
             }
         });
     }
 
     private void chekText(int lastY) {
-        if (lastY>height/2-textView.getHeight()/2){
+        if (lastY > height / 2 - textView.getHeight() / 2) {
             findViewById(R.id.tv_location_top).setVisibility(View.INVISIBLE);
             findViewById(R.id.tv_location_bottom).setVisibility(View.VISIBLE);
-        }else{
+        } else {
             findViewById(R.id.tv_location_top).setVisibility(View.VISIBLE);
             findViewById(R.id.tv_location_bottom).setVisibility(View.INVISIBLE);
         }
