@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class CallSmsSafeActivity extends Activity {
     private int pageNum;
     private TextView textView;
     private EditText et_pageNum;
+    private MyBaseAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class CallSmsSafeActivity extends Activity {
         findViewById(R.id.bt_prePage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentPageNumber <=0) {
+                if (currentPageNumber <= 0) {
                     return;
                 }
                 currentPageNumber--;
@@ -71,7 +73,7 @@ public class CallSmsSafeActivity extends Activity {
         findViewById(R.id.bt_nextPage).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentPageNumber >=(pageNum-1)) {
+                if (currentPageNumber >= (pageNum - 1)) {
                     return;
                 }
                 currentPageNumber++;
@@ -83,8 +85,8 @@ public class CallSmsSafeActivity extends Activity {
             public void onClick(View view) {
                 String num = et_pageNum.getText().toString().trim();
                 if (!TextUtils.isEmpty(num)) {
-                    int inputpage = Integer.parseInt(num);
-                    if (inputpage <0 || inputpage > (pageNum-1)) {
+                    int inputpage = Integer.parseInt(num)-1;
+                    if (inputpage < 0 || inputpage > (pageNum - 1)) {
                         Toast.makeText(CallSmsSafeActivity.this, "请输入正确数字", Toast.LENGTH_SHORT).show();
                     } else {
                         currentPageNumber = inputpage;
@@ -105,9 +107,10 @@ public class CallSmsSafeActivity extends Activity {
 
                 //缓冲页面开始
                 ll_pb.setVisibility(View.GONE);
-                textView.setText(currentPageNumber + "/" + pageNum);
-                listView.setAdapter(new MyAdapter(blacknumber_list, CallSmsSafeActivity.this));
-            }else if(msg.what == 1){
+                textView.setText(currentPageNumber+1 + "/" + pageNum);
+                adapter = new MyAdapter(blacknumber_list, CallSmsSafeActivity.this);
+                listView.setAdapter(adapter);
+            } else if (msg.what == 1) {
                 //缓冲页面开始
                 ll_pb.setVisibility(View.VISIBLE);
             }
@@ -134,7 +137,7 @@ public class CallSmsSafeActivity extends Activity {
                 //分页加载数据
                 blacknumber_list = dao.queryPage(currentPageNumber, pageSize);
                 pageTotlaSize = dao.queryCount();
-                System.out.println("---"+pageTotlaSize);
+                System.out.println("---" + pageTotlaSize);
                 pageNum = pageTotlaSize / pageSize;
                 handler.sendEmptyMessage(0);
             }
@@ -148,18 +151,21 @@ public class CallSmsSafeActivity extends Activity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup viewGroup) {
+        public View getView(final int position, View convertView, ViewGroup viewGroup) {
             ViewHolder holder = null;
             if (convertView == null) {
                 holder = new ViewHolder();
                 convertView = View.inflate(CallSmsSafeActivity.this, R.layout.layout_blacknumber_info, null);
                 holder.tv_number = (TextView) convertView.findViewById(R.id.tv_black_number);
                 holder.tv_mode = (TextView) convertView.findViewById(R.id.tv_black_mode);
+                holder.iv_delete = (ImageView) convertView.findViewById(R.id.iv_delete_blacknumber);
                 convertView.setTag(holder);
             }
             holder = (ViewHolder) convertView.getTag();
+            //设置号码
             holder.tv_number.setText(list.get(position).getNumber());
             String mode = list.get(position).getMode();
+            //设置拦截模式
             if (mode.equals("1")) {
                 holder.tv_mode.setText("电话");
             } else if (mode.equals("2")) {
@@ -167,12 +173,29 @@ public class CallSmsSafeActivity extends Activity {
             } else if (mode.equals("3")) {
                 holder.tv_mode.setText("电话+短信");
             }
+            //删除数据的事件
+
+            holder.iv_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //获得要删除的号码
+                    String delete_number = list.get(position).getNumber();
+                    //数据库删除数据
+                    dao.delete(delete_number);
+                    //集合中删除这条数据
+                    list.remove(position);
+                    //通知适配器刷新
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
             return convertView;
         }
 
         class ViewHolder {
             TextView tv_number;
             TextView tv_mode;
+            ImageView iv_delete;
         }
     }
 }
