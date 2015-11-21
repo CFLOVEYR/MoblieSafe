@@ -104,6 +104,8 @@
 
         <activity android:name=".activity.CallSmsSafeActivity" >
         </activity>
+        <activity android:name=".activity.CallSmsSafeActivity2" >
+        </activity>
     </application>
 
 </manifest>

@@ -67,7 +67,7 @@ public class HomeAcivity extends Activity {
 					break;
 				case NET_SAFE:
 					startActivity(new Intent(HomeAcivity.this,
-							CallSmsSafeActivity.class));
+							CallSmsSafeActivity2.class));
 					break;
 				case SOFT_MANNAGER:
 					startActivity(new Intent(HomeAcivity.this,

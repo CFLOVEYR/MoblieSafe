@@ -160,4 +160,27 @@ public class BlackNumberDao {
         db.close();
         return  num;
     }
+
+    /**
+     *  分批加载查询数据的方法
+     * @param maxCount  每次查询多少条数据
+     * @param startIndex 每次查询的起始位置
+     * @return
+     */
+    public List<BlackNumberInfo> queryBatches(int maxCount,int startIndex){
+        List<BlackNumberInfo> list=new ArrayList<BlackNumberInfo>();
+        SQLiteDatabase db = dbOpenHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select number,mode from blacknumber limit ? offset ?",
+                new String[]{String.valueOf(maxCount), String.valueOf(startIndex)});
+        while (cursor.moveToNext()){
+            BlackNumberInfo info=new BlackNumberInfo();
+            info.setNumber(cursor.getString(0));
+            info.setMode(cursor.getString(1));
+            list.add(info);
+        }
+        cursor.close();
+        db.close();
+//        SystemClock.sleep(3000);
+        return  list;
+    }
 }
