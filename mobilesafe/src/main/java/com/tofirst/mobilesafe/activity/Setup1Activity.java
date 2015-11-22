@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.tofirst.mobilesafe.R;
-
 public class Setup1Activity extends BaseSetupActivity{
 
 	@Override

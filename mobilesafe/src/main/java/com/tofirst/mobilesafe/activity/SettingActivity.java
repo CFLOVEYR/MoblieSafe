@@ -12,8 +12,10 @@ import android.view.View.OnClickListener;
 
 import com.tofirst.mobilesafe.R;
 import com.tofirst.mobilesafe.service.AddressService;
+import com.tofirst.mobilesafe.service.CallSmsSafeService;
 import com.tofirst.mobilesafe.utils.ServiceStatusUtils;
 import com.tofirst.mobilesafe.view.SettingAddressItemView;
+import com.tofirst.mobilesafe.view.SettingBlackNumItemView;
 import com.tofirst.mobilesafe.view.SettingToastLocationItemView;
 import com.tofirst.mobilesafe.view.SettingToastStyleItemView;
 import com.tofirst.mobilesafe.view.SettingUpdateItemView;
@@ -23,6 +25,7 @@ public class SettingActivity extends Activity {
 	private SettingAddressItemView sav;
 	private SettingToastStyleItemView stsv;
 	private SettingToastLocationItemView stlv;
+	private SettingBlackNumItemView sbv;
 	private SharedPreferences pref;
 	private String[] items = new String[] { "半透明", "活力橙", "卫士蓝", "金属灰", "苹果绿" };
 
@@ -95,7 +98,29 @@ public class SettingActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// 弹出对话框
-				startActivity(new Intent(SettingActivity.this,ToastLocationActivity.class));
+				startActivity(new Intent(SettingActivity.this, ToastLocationActivity.class));
+			}
+		});
+
+
+		/**
+		 * 黑名单的点击事件
+		 */
+		sbv.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// 判断是否选到
+				if (pref.getBoolean("BlackNumflag", true)) {
+					pref.edit().putBoolean("BlackNumflag", false).commit();
+					sbv.setChecked(false);
+					stopService(new Intent(SettingActivity.this,
+							CallSmsSafeService.class));
+				} else {
+					pref.edit().putBoolean("BlackNumflag", true).commit();
+					sbv.setChecked(true);
+					startService(new Intent(SettingActivity.this,
+							CallSmsSafeService.class));
+				}
 			}
 		});
 	}
@@ -126,6 +151,7 @@ public class SettingActivity extends Activity {
 		InitAddressView();
 		InitToastStyleView();
 		InitToastLocationView();
+		InitBlackNumView();
 	}
 	private void InitToastLocationView() {
 		// 自定义样式的初始化
@@ -145,9 +171,9 @@ public class SettingActivity extends Activity {
 	}
 
 	private void InitAddressView() {
+		sav = (SettingAddressItemView) findViewById(R.id.rl_setting_address);
 		// 查看进程是否被360，管家类恶意停止
 		String serviceName = "com.tofirst.mobilesafe.service.AddressService";
-		sav = (SettingAddressItemView) findViewById(R.id.rl_setting_address);
 		boolean checkServiceRunning = ServiceStatusUtils.checkServiceRunning(
 				this, serviceName);
 		if (checkServiceRunning) {
@@ -181,6 +207,29 @@ public class SettingActivity extends Activity {
 		} else {
 			siv.setChecked(false);
 			siv.setText(siv.mDesc_off);
+		}
+
+	}
+
+	private void InitBlackNumView() {
+		// 查看进程是否被360，管家类恶意停止
+		String serviceName = "com.tofirst.mobilesafe.service.CallSmsSafeService";
+		boolean checkServiceRunning = ServiceStatusUtils.checkServiceRunning(
+				this, serviceName);
+		if (checkServiceRunning) {
+			pref.edit().putBoolean("BlackNumflag", true).commit();
+		} else {
+			pref.edit().putBoolean("BlackNumflag", false).commit();
+		}
+		sbv = (SettingBlackNumItemView) findViewById(R.id.rl_setting_blackNum);
+		// 初始化自动更新属性
+		sbv.setTitle(sbv.mtitle);
+		if (pref.getBoolean("BlackNumflag", true)) {
+			sbv.setChecked(true);
+			sbv.setText(sbv.mDesc_on);
+		} else {
+			sbv.setChecked(false);
+			sbv.setText(sbv.mDesc_off);
 		}
 
 	}
