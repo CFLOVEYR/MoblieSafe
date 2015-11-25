@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<ImageView
+    android:id="@+id/iv_soft_mannager"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:src="@drawable/ic_launcher"/>
+    <TextView
+        android:id="@+id/tv_soft_mannger_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_soft_mannager"
+        android:text="手机安全卫士"
+        style="@style/TextCommon"
+        android:singleLine="true"/>
+        <TextView
+            android:id="@+id/tv_soft_location"
+            android:layout_below="@id/tv_soft_mannger_name"
+            android:layout_toRightOf="@id/iv_soft_mannager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机内存:"
+            android:textColor="@color/gray"
+            style="@style/TextCommon"
+            />
+        <TextView
+            android:id="@+id/tv_soft_size"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_soft_mannger_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="300M"
+            android:layout_marginRight="70dp"
+            android:textColor="#f00"
+            style="@style/TextCommon"
+            />
+
+</RelativeLayout>

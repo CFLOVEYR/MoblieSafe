@@ -116,6 +116,9 @@
             android:enabled="true"
             android:exported="true" >
         </service>
+
+        <activity android:name=".activity.SoftManngerActivity" >
+        </activity>
     </application>
 
 </manifest>

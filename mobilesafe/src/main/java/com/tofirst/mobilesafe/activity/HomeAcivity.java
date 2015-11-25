@@ -71,7 +71,7 @@ public class HomeAcivity extends Activity {
 					break;
 				case SOFT_MANNAGER:
 					startActivity(new Intent(HomeAcivity.this,
-							SettingActivity.class));
+							SoftManngerActivity.class));
 					break;
 				case PROCESS_MANNAGER:
 					startActivity(new Intent(HomeAcivity.this,
