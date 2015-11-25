@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/TitleTheme"
+        android:text="短信备份还原" />
+    <ProgressBar
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pb_sms"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        />
+    <!--短信备份-->
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:onClick="smsBackupToSdcardRL"
+        android:id="@+id/rl_smsbackup_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/traffic_jindu_background">
+
+        <ImageView
+            android:id="@+id/iv_sms_1"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:src="@drawable/sms_backup" />
+
+        <TextView
+            android:id="@+id/tv_sms_beifen1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_sms_1"
+            android:clickable="false"
+            android:focusable="false"
+            android:text="备份短信"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_sms_beifen1"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/iv_sms_1"
+            android:clickable="false"
+            android:focusable="false"
+            android:text="将短信备份到SD卡"
+            android:textColor="@color/gray"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+    <!--&lt;!&ndash;备份还原&ndash;&gt;-->
+    <!--<RelativeLayout-->
+        <!--android:layout_below="@id/rl_setting_blackNum"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:background="@drawable/traffic_jindu_background">-->
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_sms_2"-->
+            <!--android:layout_width="70dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:clickable="false"-->
+            <!--android:focusable="false"-->
+            <!--android:src="@drawable/sms_backup" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_sms_beifen2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_toRightOf="@id/iv_sms_2"-->
+            <!--android:clickable="false"-->
+            <!--android:focusable="false"-->
+            <!--android:text="备份还原"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="20sp" />-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/tv_sms_beifen2"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_toRightOf="@id/iv_sms_2"-->
+            <!--android:clickable="false"-->
+            <!--android:focusable="false"-->
+            <!--android:text="将短信备份到SD卡"-->
+            <!--android:textColor="@color/gray"-->
+            <!--android:textSize="17sp" />-->
+
+    <!--</RelativeLayout>-->
+
+</LinearLayout>

@@ -16,11 +16,19 @@ public class AdvanceToolsActivity extends Activity{
 		
 	}
 	/**
-	 * 调到地址查询的界面
+	 * 跳转到地址查询的界面
 	 * @param view
 	 */
 	public void adressQuery(View view){
-		startActivity(new Intent(AdvanceToolsActivity.this,QueryAddressActivity.class));
+		startActivity(new Intent(AdvanceToolsActivity.this, QueryAddressActivity.class));
+		finish();
+	}
+	/**
+	 * 跳转到地址查询的界面
+	 * @param view
+	 */
+	public void smsBackup(View view){
+		startActivity(new Intent(AdvanceToolsActivity.this,SmsBackupActivity.class));
 		finish();
 	}
 }

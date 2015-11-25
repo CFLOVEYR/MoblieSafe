@@ -5,6 +5,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="sample_device_admin_description">保护你手机需要进行的操作</string>
     <string name="sample_device_admin">权限的获得</string>
-    
+
 
 </resources>
