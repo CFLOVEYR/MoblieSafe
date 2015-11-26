@@ -111,7 +111,7 @@ public class SplashActivity extends Activity {
 
 		// 渐变的动画
 		AlphaAnimation animation = new AlphaAnimation(0.1f, 1f);
-		animation.setDuration(2000);// 设置两秒的渐变过程
+		animation.setDuration(1000);// 设置两秒的渐变过程
 		rl_splash.startAnimation(animation);
 
 		// 复制数据库到files目录下
@@ -124,7 +124,7 @@ public class SplashActivity extends Activity {
 			checkVersion();
 		} else {
 			// 用发送延时消息来处理进入主界面的内容
-			handler.sendEmptyMessageDelayed(ENTER_HOME_CODE, 2000);
+			handler.sendEmptyMessageDelayed(ENTER_HOME_CODE, 1000);
 		}
 
 	}
