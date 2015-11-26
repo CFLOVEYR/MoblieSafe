@@ -118,7 +118,7 @@ public class SplashActivity extends Activity {
 		copyDb("address.db");
 
 		// 更新页面的版本内容
-		tv_vesion.setText("版本号：" + getVersionName());
+		tv_vesion.setText( getVersionName());
 		// 检查是否有新的版本
 		if (pref.getBoolean("Updateflag", true)) {
 			checkVersion();

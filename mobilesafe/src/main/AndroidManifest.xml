@@ -107,16 +107,17 @@
         <service android:name=".service.AddressService" />
         <service android:name=".service.RoketService" />
 
-        <activity android:name=".activity.CallSmsSafeActivity"></activity>
-        <activity android:name=".activity.CallSmsSafeActivity2"></activity>
+        <activity android:name=".activity.CallSmsSafeActivity" />
+        <activity android:name=".activity.CallSmsSafeActivity2" />
 
         <service
             android:name=".service.CallSmsSafeService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
-        <activity android:name=".activity.SoftManngerActivity"></activity>
-        <activity android:name=".activity.SmsBackupActivity"></activity>
+        <activity android:name=".activity.SoftManngerActivity" />
+        <activity android:name=".activity.SmsBackupActivity" />
+        <activity android:name=".activity.ProgressActivity"></activity>
     </application>
 
 </manifest>

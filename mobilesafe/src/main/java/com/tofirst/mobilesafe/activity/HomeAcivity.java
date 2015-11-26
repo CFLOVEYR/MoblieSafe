@@ -75,7 +75,7 @@ public class HomeAcivity extends Activity {
 					break;
 				case PROCESS_MANNAGER:
 					startActivity(new Intent(HomeAcivity.this,
-							RoketActivity.class));
+							ProgressActivity.class));
 					break;
 				case SUMMARY_FLOW:
 					startActivity(new Intent(HomeAcivity.this,
