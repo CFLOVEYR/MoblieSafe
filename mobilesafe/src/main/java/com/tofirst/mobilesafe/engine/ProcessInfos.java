@@ -75,7 +75,6 @@ public class ProcessInfos {
                  *
                  *   给赋值两个值
                  */
-
                 progressInfo.setIcon(context.getResources().getDrawable(R.drawable.ic_launcher));
                 progressInfo.setAppName("系统非常重要的应用");
                 e.printStackTrace();

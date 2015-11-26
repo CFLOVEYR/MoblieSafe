@@ -28,8 +28,18 @@ public class ProgressInfo {
                 ", appName='" + appName + '\'' +
                 ", pakageName='" + pakageName + '\'' +
                 ", isUserApp=" + isUserApp +
-                ", appSize='" + appSize + '\'' +
+                ", appSize=" + appSize +
+                ", isChecked=" + isChecked +
                 '}';
+    }
+
+    public ProgressInfo(Drawable icon, String appName, String pakageName, boolean isUserApp, long appSize, boolean isChecked) {
+        this.icon = icon;
+        this.appName = appName;
+        this.pakageName = pakageName;
+        this.isUserApp = isUserApp;
+        this.appSize = appSize;
+        this.isChecked = isChecked;
     }
 
     public Drawable getIcon() {
@@ -76,12 +86,5 @@ public class ProgressInfo {
 
     }
 
-    public ProgressInfo(Drawable icon, String appName, String pakageName, boolean isUserApp, long appSize) {
 
-        this.icon = icon;
-        this.appName = appName;
-        this.pakageName = pakageName;
-        this.isUserApp = isUserApp;
-        this.appSize = appSize;
-    }
 }

@@ -25,6 +25,9 @@
             android:id="@+id/tv_progress_memory"/>
     </LinearLayout>
     <CheckBox
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:id="@+id/cb_progress_isuserapp"
         android:layout_alignParentRight="true"
         android:layout_width="wrap_content"

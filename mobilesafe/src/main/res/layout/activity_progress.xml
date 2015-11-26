@@ -39,6 +39,7 @@
         android:text="系统应用"
         android:textColor="#ffffff" />
     <FrameLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -66,6 +67,47 @@
             layout="@layout/list_view"></include>
 
     </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:background="@drawable/button_selector_resetup"
+            android:layout_weight="1"
+            android:id="@+id/bt_progress_enall"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全选"
+            />
+        <Button
+            android:background="@drawable/button_selector_resetup"
+            android:layout_weight="1"
+            android:id="@+id/bt_progress_deall"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="反选"
+            />
+        <Button
+            android:background="@drawable/button_selector_resetup"
+            android:layout_weight="1"
+            android:id="@+id/bt_progress_killall"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一键清理"
+            />
+        <Button
+            android:background="@drawable/button_selector_resetup"
+            android:layout_weight="1"
+            android:id="@+id/bt_progress_entersetting"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置"
+            />
+    </LinearLayout>
 
 </LinearLayout>
 
