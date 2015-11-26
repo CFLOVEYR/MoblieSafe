@@ -108,7 +108,10 @@ public class SmsUtils {
                     serializer.endTag(null, "date");
                     //内容
                     serializer.startTag(null, "body");
-                    serializer.text(info.getBody());
+                    /**
+                     *    对数据进行加密处理
+                     */
+                    serializer.text(new encryptionUtils().encryption(info.getBody()));
                     serializer.endTag(null, "body");
                     //来电还是去电
                     serializer.startTag(null, "type");
