@@ -41,6 +41,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.tofirst.mobilesafe.R;
 import com.tofirst.mobilesafe.service.AddressService;
+import com.tofirst.mobilesafe.service.UpdateWidgetService;
 import com.tofirst.mobilesafe.utils.GetStreamStringUtils;
 
 public class SplashActivity extends Activity {
@@ -107,7 +108,6 @@ public class SplashActivity extends Activity {
 		// 初始化组件
 		InitView();
 		// 初始化服务
-//		initService();
 
 		// 渐变的动画
 		AlphaAnimation animation = new AlphaAnimation(0.1f, 1f);

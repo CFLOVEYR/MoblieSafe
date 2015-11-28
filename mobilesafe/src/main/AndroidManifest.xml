@@ -46,24 +46,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 主界面 -->
         <activity android:name=".activity.HomeAcivity" />
+        <!-- 设置页面 -->
         <activity android:name=".activity.SettingActivity" />
+        <!-- 防盗页面 -->
         <activity android:name=".activity.LostFindActivity" />
+        <!-- 防盗引导页面 -->
         <activity android:name=".activity.Setup1Activity" />
         <activity android:name=".activity.Setup2Activity" />
         <activity android:name=".activity.Setup3Activity" />
         <activity android:name=".activity.Setup4Activity" />
+        <!-- 读取联系人 -->
         <activity android:name=".activity.ReadContactActivity" />
+        <!-- 高级工具 -->
         <activity android:name=".activity.AdvanceToolsActivity" />
+        <!-- 查询地址 -->
         <activity android:name=".activity.QueryAddressActivity" />
+        <!-- 界面显示框位置设置 -->
         <activity
             android:name=".activity.ToastLocationActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 小火箭的Demo -->
         <activity android:name=".activity.RoketActivity" />
+        <!-- 小火箭的背景 -->
         <activity
             android:name=".activity.RoketBackgroundActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
+        <!-- 软件管理界面 -->
+        <activity android:name=".activity.SoftManngerActivity" />
+        <!-- 短信备份 -->
+        <activity android:name=".activity.SmsBackupActivity" />
+        <!-- 进程管理 -->
+        <activity android:name=".activity.ProgressMannagerActivity" />
+        <!-- 进程管理设置界面 -->
+        <activity android:name=".activity.ProgressSettingActivity" />
         <!-- receier -->
         <receiver android:name=".receiver.BootCheckSimRecevier">
             <intent-filter>
@@ -102,7 +119,16 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
+        <!-- 桌面组件 -->
+        <receiver android:name=".receiver.MyWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
 
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/process_widget_provider" />
+        </receiver>
         <!-- service -->
         <service android:name=".service.LocationService" />
         <service android:name=".service.AddressService" />
@@ -115,11 +141,31 @@
             android:name=".service.CallSmsSafeService"
             android:enabled="true"
             android:exported="true" />
+        <!--
+             ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <!-- 锁屏清理服务 -->
+        <service
+            android:name=".service.CleanTaskService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".service.UpdateWidgetService"
+            android:enabled="true"
+            android:exported="true" />
 
-        <activity android:name=".activity.SoftManngerActivity" />
-        <activity android:name=".activity.SmsBackupActivity" />
-        <activity android:name=".activity.ProgressMannagerActivity" />
-        <activity android:name=".activity.ProgressSettingActivity"></activity>
+        <receiver
+            android:name=".receiver.KillAllProcessReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.tofirst.killallprocess" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

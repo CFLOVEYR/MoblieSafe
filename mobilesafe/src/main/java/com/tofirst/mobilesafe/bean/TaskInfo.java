@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 /**
  * Created by Study on 2015/11/26.
  */
-public class ProgressInfo {
+public class TaskInfo {
     private Drawable icon;
     private String appName;
     private String pakageName;
@@ -33,7 +33,7 @@ public class ProgressInfo {
                 '}';
     }
 
-    public ProgressInfo(Drawable icon, String appName, String pakageName, boolean isUserApp, long appSize, boolean isChecked) {
+    public TaskInfo(Drawable icon, String appName, String pakageName, boolean isUserApp, long appSize, boolean isChecked) {
         this.icon = icon;
         this.appName = appName;
         this.pakageName = pakageName;
@@ -82,7 +82,7 @@ public class ProgressInfo {
         this.appSize = appSize;
     }
 
-    public ProgressInfo() {
+    public TaskInfo() {
 
     }
 

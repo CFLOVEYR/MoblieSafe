@@ -23,14 +23,15 @@
 
         <CheckBox
             android:id="@+id/cb_progress_setting"
-            android:clickable="false"
-            android:focusable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:clickable="false"
+            android:focusable="false" />
 
     </RelativeLayout>
+
     <com.tofirst.mobilesafe.view.SettingUpdateItemView
         android:id="@+id/rl_setting"
         android:layout_width="wrap_content"
@@ -38,4 +39,16 @@
         tofirst:desc_off="定时清理已关闭"
         tofirst:desc_on="定时清理已开启"
         tofirst:title="定时清理进程" />
+
+    <TextView
+        android:id="@+id/tv_cleantime"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:gravity="center"
+        android:text="定时清理进程"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+
 </LinearLayout>

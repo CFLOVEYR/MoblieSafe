@@ -31,7 +31,7 @@ import android.widget.TextView;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.tofirst.mobilesafe.R;
-import com.tofirst.mobilesafe.bean.ProgressInfo;
+import com.tofirst.mobilesafe.bean.TaskInfo;
 import com.tofirst.mobilesafe.engine.ProcessInfos;
 import com.tofirst.mobilesafe.utils.SystemInfoUtils;
 
@@ -64,16 +64,16 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
     @ViewInject(R.id.bt_progress_entersetting)
     private Button bt_progress_entersetting;
 
-    private List<ProgressInfo> progress_list;//存储进程信息的集合
-    private List<ProgressInfo> progress_list_user;//存储进程信息的集合
-    private List<ProgressInfo> progress_list_system;//存储进程信息的集合
+    private List<TaskInfo> progress_list;//存储进程信息的集合
+    private List<TaskInfo> progress_list_user;//存储进程信息的集合
+    private List<TaskInfo> progress_list_system;//存储进程信息的集合
     private MyProgessAdapter adapter;//添加的适配器
     private int processCount;
     private String availRam;
     private long availRam_long;
     private PackageManager packageManager;
     private ActivityManager am;
-    private List<ProgressInfo> list_delete;
+    private List<TaskInfo> list_delete;
     private int afterProgressNum;
     private int num;
     private String totalRam;
@@ -84,8 +84,7 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initUI();
-        initData();
+
     }
 
     @Override
@@ -94,6 +93,7 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
         initUI();
         initData();
     }
+
 
     private Handler handler = new Handler() {
         @Override
@@ -114,10 +114,10 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
             @Override
             public void run() {
                 ll_pb_progress.setVisibility(View.VISIBLE);
-                progress_list_user = new ArrayList<ProgressInfo>();
-                progress_list_system = new ArrayList<ProgressInfo>();
+                progress_list_user = new ArrayList<TaskInfo>();
+                progress_list_system = new ArrayList<TaskInfo>();
                 progress_list = ProcessInfos.getPogressInfos(ProgressMannagerActivity.this);
-                for (ProgressInfo info : progress_list) {
+                for (TaskInfo info : progress_list) {
                     if (info.isUserApp()) {
                         progress_list_user.add(info);
                     } else {
@@ -126,9 +126,8 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
                         }
                     }
                 }
-                Message msg=handler.obtainMessage();
-                msg.what=0;
-                handler.sendMessageDelayed(msg,2000);
+
+                handler.sendEmptyMessage(0);
             }
         }.start();
     }
@@ -183,7 +182,7 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
                  * 这可以得到可以转化为item的javabean对象,方便下边的利用
                  */
                 Object obj = list_view_process.getItemAtPosition(position);
-                ProgressInfo info = (ProgressInfo) obj;
+                TaskInfo info = (TaskInfo) obj;
                 if (obj != null) {
                     CheckBox cb = (CheckBox) view.findViewById(R.id.cb_progress_isuserapp);
                     if (info.getPakageName().equals(getPackageName())) {
@@ -207,7 +206,7 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
         am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         switch (view.getId()){
             case R.id.bt_progress_enall://全选
-                for (ProgressInfo info:progress_list_user) {
+                for (TaskInfo info:progress_list_user) {
                     if (!info.getPakageName().equals(getPackageName())) {
                         if (!info.isChecked()) {
                             info.setIsChecked(true);
@@ -215,7 +214,7 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
                     }
 
                 }
-                for (ProgressInfo info:progress_list_system) {
+                for (TaskInfo info:progress_list_system) {
                     if (!info.getPakageName().equals(getPackageName())) {
                         if (!info.isChecked()) {
                             info.setIsChecked(true);
@@ -225,7 +224,7 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
                 handler.sendEmptyMessage(0);
                 break;
             case R.id.bt_progress_deall://反选
-                for (ProgressInfo info:progress_list_user) {
+                for (TaskInfo info:progress_list_user) {
                     if (!info.getPakageName().equals(getPackageName())) {
                         if (info.isChecked()) {
                             info.setIsChecked(false);
@@ -234,7 +233,7 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
                         }
                     }
                 }
-                for (ProgressInfo info:progress_list_system) {
+                for (TaskInfo info:progress_list_system) {
                     if (!info.getPakageName().equals(getPackageName())) {
                         if (info.isChecked()) {
                             info.setIsChecked(false);
@@ -246,31 +245,31 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
                 handler.sendEmptyMessage(0);
                 break;
             case R.id.bt_progress_killall://一键清理
-                list_delete = new ArrayList<ProgressInfo>();
+
+                list_delete = new ArrayList<TaskInfo>();
                 /**
                  *
                  *    集合迭代的时候不能删除元素,需要另建一个集合,等迭代完成后再删除集合中的元素
                  *
-                 *
                  */
-                for (ProgressInfo info:progress_list_user) {
+                for (TaskInfo info:progress_list_user) {
                     if (info.isChecked()) {
                         list_delete.add(info);
                     }
                 }
-                for (ProgressInfo info:progress_list_system) {
+                for (TaskInfo info:progress_list_system) {
                     if (info.isChecked()) {
                         list_delete.add(info);
                     }
                 }
-                //删除要显示的内存
                 progress_list_user.removeAll(list_delete);
                 progress_list_system.removeAll(list_delete);
                 //删除后的内存可用内存需要增加,总共的进程个数要减少
-                for (ProgressInfo info: list_delete) {
+                for (TaskInfo info: list_delete) {
                     beforeravaiRam +=info.getAppSize();
-                    am.killBackgroundProcesses(info.getPakageName());
                     num++;
+                    //杀死相应的进程
+                    am.killBackgroundProcesses(info.getPakageName());
                 }
                 Log.d(TAG, "杀死了" + list_delete.size() + "个进程,总共释放了" + Formatter.formatFileSize(this, beforeravaiRam) + "内存");
                 tv_progress_runningnum.setText("运行中的内存:" + String.valueOf(processCount - num));
@@ -301,7 +300,7 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
         /**
          * 需要声明为成员变量,否则会都是那个图标,不能复用
          */
-        ProgressInfo info;
+        TaskInfo info;
 
         @Override
         public int getCount() {
@@ -332,7 +331,6 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public View getView(int position, View covertview, ViewGroup viewGroup) {
-
             /**
              *  特殊条目的判断
              */
@@ -348,20 +346,16 @@ public class ProgressMannagerActivity extends Activity implements View.OnClickLi
                 textView.setText("系统进程 (" + progress_list_system.size() + ")");
                 textView.setTextColor(Color.WHITE);
                 return textView;
-            }
-            if (position < progress_list_user.size() + 1) {
-
+            }else if (position < progress_list_user.size() + 1) {
                 info = progress_list_user.get(position - 1);
                 Log.d(TAG, "--------------------用户" + info.toString());
             } else if (position > progress_list_user.size() + 2) {
-
                 info = progress_list_system.get(position - progress_list_user.size() - 2);
                 Log.d(TAG, "--------------------系统" + info.toString());
             }
 
             if (covertview != null && covertview instanceof RelativeLayout) {
                 holder = (ViewHolder) covertview.getTag();
-
             } else {
                 holder = new ViewHolder();
                 covertview = View.inflate(ProgressMannagerActivity.this, R.layout.progress_mannager_item, null);

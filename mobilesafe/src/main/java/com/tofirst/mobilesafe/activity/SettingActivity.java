@@ -6,16 +6,22 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.tofirst.mobilesafe.R;
 import com.tofirst.mobilesafe.service.AddressService;
 import com.tofirst.mobilesafe.service.CallSmsSafeService;
+import com.tofirst.mobilesafe.service.CleanTaskService;
 import com.tofirst.mobilesafe.utils.ServiceStatusUtils;
 import com.tofirst.mobilesafe.view.SettingAddressItemView;
 import com.tofirst.mobilesafe.view.SettingBlackNumItemView;
+import com.tofirst.mobilesafe.view.SettingCleanTaskItemView;
 import com.tofirst.mobilesafe.view.SettingToastLocationItemView;
 import com.tofirst.mobilesafe.view.SettingToastStyleItemView;
 import com.tofirst.mobilesafe.view.SettingUpdateItemView;
@@ -27,7 +33,7 @@ public class SettingActivity extends Activity {
 	private SettingToastLocationItemView stlv;
 	private SettingBlackNumItemView sbv;
 	private SharedPreferences pref;
-	private String[] items = new String[] { "半透明", "活力橙", "卫士蓝", "金属灰", "苹果绿" };
+	private String[] items = new String[]{"半透明", "活力橙", "卫士蓝", "金属灰", "苹果绿"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -123,16 +129,17 @@ public class SettingActivity extends Activity {
 				}
 			}
 		});
+
+
 	}
 
 	protected void showSingleDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(
+		Builder builder = new Builder(
 				SettingActivity.this);
 		builder.setIcon(R.drawable.ic_launcher);
 		builder.setTitle("归属地提示框风格");
 		builder.setSingleChoiceItems(items, 0,
 				new DialogInterface.OnClickListener() {
-
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						pref.edit().putInt("Toast_Style", which).commit();
@@ -153,6 +160,7 @@ public class SettingActivity extends Activity {
 		InitToastLocationView();
 		InitBlackNumView();
 	}
+
 	private void InitToastLocationView() {
 		// 自定义样式的初始化
 		stlv = (SettingToastLocationItemView) findViewById(R.id.rl_setting_toast_location);
@@ -166,7 +174,7 @@ public class SettingActivity extends Activity {
 		stsv = (SettingToastStyleItemView) findViewById(R.id.rl_setting_toast_style);
 		// 初始化自动更新属性
 		stsv.setTitle(stsv.mtitle);
-		int num=pref.getInt("Toast_Style", 0);
+		int num = pref.getInt("Toast_Style", 0);
 		stsv.setText(items[num]);
 	}
 
@@ -211,7 +219,10 @@ public class SettingActivity extends Activity {
 
 	}
 
+
+
 	private void InitBlackNumView() {
+		sbv = (SettingBlackNumItemView) findViewById(R.id.rl_setting_blackNum);
 		// 查看进程是否被360，管家类恶意停止
 		String serviceName = "com.tofirst.mobilesafe.service.CallSmsSafeService";
 		boolean checkServiceRunning = ServiceStatusUtils.checkServiceRunning(
@@ -221,7 +232,6 @@ public class SettingActivity extends Activity {
 		} else {
 			pref.edit().putBoolean("BlackNumflag", false).commit();
 		}
-		sbv = (SettingBlackNumItemView) findViewById(R.id.rl_setting_blackNum);
 		// 初始化自动更新属性
 		sbv.setTitle(sbv.mtitle);
 		if (pref.getBoolean("BlackNumflag", true)) {
@@ -233,4 +243,5 @@ public class SettingActivity extends Activity {
 		}
 
 	}
+
 }
