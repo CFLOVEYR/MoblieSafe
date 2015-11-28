@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tofirst.mobilesafe.activity.WatchDogActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:textSize="26sp"
+        android:gravity="center"
+        android:background="@drawable/header_button_bg_others"
+        android:text="请输入隐私保护密码"
+        />
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:src="@drawable/icon_lock_big"
+    />
+    <RelativeLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_dog"
+            android:layout_marginLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:padding="2dp"/>
+        <Button
+            android:id="@+id/bt_dog_yes"
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="确定"
+            android:textSize="20sp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/desktop_button_1"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:padding="7dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/bt_dog_num1"
+                android:layout_gravity="center"
+                android:text="1"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/bt_dog_num2"
+                android:text="2"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <Button
+                android:text="3"
+                android:id="@+id/bt_dog_num3"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:padding="7dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/bt_dog_num4"
+                android:layout_gravity="center"
+                android:text="4"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/bt_dog_num5"
+                android:text="5"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/bt_dog_num6"
+                android:text="6"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:padding="7dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/bt_dog_num7"
+                android:layout_gravity="center"
+                android:text="7"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/bt_dog_num8"
+                android:text="8"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/bt_dog_num9"
+                android:text="9"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <LinearLayout
+            android:padding="7dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/bt_dog_clean"
+                android:layout_gravity="center"
+                android:text="清空"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/bt_dog_num0"
+                android:text="0"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/bt_dog_delete"
+                android:text="X"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

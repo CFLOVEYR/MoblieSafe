@@ -34,4 +34,19 @@
         android:textSize="18sp"
         android:clickable="true"
         android:onClick="smsBackup"/>
+
+    <!--程序锁-->
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/waterpin"
+        android:drawableLeft="@android:drawable/ic_menu_send"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="程序汪"
+        android:textSize="18sp"
+        android:clickable="true"
+        android:onClick="softLock"/>
 </LinearLayout>

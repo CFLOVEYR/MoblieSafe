@@ -18,6 +18,7 @@ import com.tofirst.mobilesafe.R;
 import com.tofirst.mobilesafe.service.AddressService;
 import com.tofirst.mobilesafe.service.CallSmsSafeService;
 import com.tofirst.mobilesafe.service.CleanTaskService;
+import com.tofirst.mobilesafe.service.WatchDogService;
 import com.tofirst.mobilesafe.utils.ServiceStatusUtils;
 import com.tofirst.mobilesafe.view.SettingAddressItemView;
 import com.tofirst.mobilesafe.view.SettingBlackNumItemView;
@@ -25,6 +26,7 @@ import com.tofirst.mobilesafe.view.SettingCleanTaskItemView;
 import com.tofirst.mobilesafe.view.SettingToastLocationItemView;
 import com.tofirst.mobilesafe.view.SettingToastStyleItemView;
 import com.tofirst.mobilesafe.view.SettingUpdateItemView;
+import com.tofirst.mobilesafe.view.SettingWatchDogItemView;
 
 public class SettingActivity extends Activity {
 	private SettingUpdateItemView siv;
@@ -32,6 +34,7 @@ public class SettingActivity extends Activity {
 	private SettingToastStyleItemView stsv;
 	private SettingToastLocationItemView stlv;
 	private SettingBlackNumItemView sbv;
+	private SettingWatchDogItemView swv;
 	private SharedPreferences pref;
 	private String[] items = new String[]{"半透明", "活力橙", "卫士蓝", "金属灰", "苹果绿"};
 
@@ -41,6 +44,11 @@ public class SettingActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		pref = getSharedPreferences("config", MODE_PRIVATE);
 		setContentView(R.layout.activity_setting);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
 		// 初始化组件
 		initView();
 		// 点击事件
@@ -130,6 +138,27 @@ public class SettingActivity extends Activity {
 			}
 		});
 
+		/**
+		 * 看萌狗的点击事件
+		 */
+		swv.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// 判断是否选到
+				if (pref.getBoolean("WatchDogflag", true)) {
+					pref.edit().putBoolean("WatchDogflag", false).commit();
+					swv.setChecked(false);
+					stopService(new Intent(SettingActivity.this,
+							WatchDogService.class));
+				} else {
+					pref.edit().putBoolean("WatchDogflag", true).commit();
+					swv.setChecked(true);
+					startService(new Intent(SettingActivity.this,
+							WatchDogService.class));
+				}
+			}
+		});
+
 
 	}
 
@@ -159,6 +188,7 @@ public class SettingActivity extends Activity {
 		InitToastStyleView();
 		InitToastLocationView();
 		InitBlackNumView();
+		InitWatchDogView();
 	}
 
 	private void InitToastLocationView() {
@@ -240,6 +270,32 @@ public class SettingActivity extends Activity {
 		} else {
 			sbv.setChecked(false);
 			sbv.setText(sbv.mDesc_off);
+		}
+
+	}
+
+	/**
+	 * 看萌狗初始化数据
+	 */
+	private void InitWatchDogView() {
+		swv = (SettingWatchDogItemView) findViewById(R.id.rl_setting_WatchDog);
+		// 查看进程是否被360，管家类恶意停止
+		String serviceName = "com.tofirst.mobilesafe.service.WatchDogService";
+		boolean checkServiceRunning = ServiceStatusUtils.checkServiceRunning(
+				this, serviceName);
+		if (checkServiceRunning) {
+			pref.edit().putBoolean("WatchDogflag", true).commit();
+		} else {
+			pref.edit().putBoolean("WatchDogflag", false).commit();
+		}
+		// 初始化自动更新属性
+		swv.setTitle(swv.mtitle);
+		if (pref.getBoolean("WatchDogflag", true)) {
+			swv.setChecked(true);
+			swv.setText(swv.mDesc_on);
+		} else {
+			swv.setChecked(false);
+			swv.setText(swv.mDesc_off);
 		}
 
 	}

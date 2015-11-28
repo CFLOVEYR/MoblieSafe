@@ -13,11 +13,11 @@ public class BlackNumberDBOpenHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *  创建表
-     * @param sqLiteDatabase
-     * blacknumber 表名
-     * number 拦截的号码
-     * mode 拦截模式：短信，电话，短信+电话
+     * 创建表
+     *
+     * @param sqLiteDatabase blacknumber 表名
+     *                       number 拦截的号码
+     *                       mode 拦截模式：短信，电话，短信+电话
      */
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {

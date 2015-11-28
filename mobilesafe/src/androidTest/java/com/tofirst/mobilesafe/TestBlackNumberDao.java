@@ -2,15 +2,20 @@ package com.tofirst.mobilesafe;
 
 import android.content.Context;
 import android.test.AndroidTestCase;
+import android.util.Log;
 
+import com.tofirst.mobilesafe.bean.SoftManangerInfo;
 import com.tofirst.mobilesafe.db.dao.BlackNumberDao;
+import com.tofirst.mobilesafe.db.dao.SoftLockDao;
 
+import java.util.List;
 import java.util.Random;
 
 /**
  * Created by StudyLifetime on 2015/11/20.
  */
 public class TestBlackNumberDao extends AndroidTestCase {
+    private static final String TAG = "AndroidTestCase";
     public Context mContext;
 
     @Override
@@ -49,9 +54,34 @@ public class TestBlackNumberDao extends AndroidTestCase {
     }
     public void testqueryPage(){
         BlackNumberDao dao= new BlackNumberDao(mContext);
-        dao.queryPage(10,20);
+        dao.queryPage(10, 20);
     }
 
+
+    /**
+     *  检测程序锁数据库
+     *
+     */
+
+    public void testInsert1(){
+        SoftLockDao dao=new SoftLockDao(mContext);
+        dao.insert("wwww");
+    }
+
+    public void testDelete1(){
+        SoftLockDao dao=new SoftLockDao(mContext);
+        dao.delete("10");
+    }
+
+    public void testQueryALL1(){
+        SoftLockDao dao=new SoftLockDao(mContext);
+        List<String> infos = dao.queryAll();
+        for (String info:infos) {
+            Log.d(TAG, "------------");
+            Log.d(TAG, info);
+        }
+
+    }
 
 
 }

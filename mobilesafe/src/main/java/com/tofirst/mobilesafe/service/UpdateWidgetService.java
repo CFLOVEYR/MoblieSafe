@@ -41,12 +41,6 @@ public class UpdateWidgetService extends Service {
     public void onCreate() {
         super.onCreate();
         updateTimerWidget();
-        innearScreenBroadCast = new InnearScreenBroadCast();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        filter.addAction(Intent.ACTION_SCREEN_ON);
-        registerReceiver(innearScreenBroadCast, filter);
-
     }
 
     //实现监听开屏关屏广播只能代码注册
@@ -56,6 +50,11 @@ public class UpdateWidgetService extends Service {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction() == Intent.ACTION_SCREEN_ON) {
                 Log.d(TAG, "开启屏幕了");
+                innearScreenBroadCast = new InnearScreenBroadCast();
+                IntentFilter filter = new IntentFilter();
+                filter.addAction(Intent.ACTION_SCREEN_OFF);
+                filter.addAction(Intent.ACTION_SCREEN_ON);
+                registerReceiver(innearScreenBroadCast, filter);
                 //计时跟新桌面组件
                 updateTimerWidget();
             } else if (intent.getAction() == Intent.ACTION_SCREEN_OFF) {
@@ -103,7 +102,6 @@ public class UpdateWidgetService extends Service {
         super.onDestroy();
         //服务关闭的时候关闭计时器
         stopTimer();
-        unregisterReceiver(innearScreenBroadCast);
     }
 
     private void stopTimer() {
@@ -111,5 +109,6 @@ public class UpdateWidgetService extends Service {
         timerTask.cancel();
         timer = null;
         timerTask = null;
+        unregisterReceiver(innearScreenBroadCast);
     }
 }

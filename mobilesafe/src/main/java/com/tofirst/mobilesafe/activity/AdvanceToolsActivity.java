@@ -31,4 +31,13 @@ public class AdvanceToolsActivity extends Activity{
 		startActivity(new Intent(AdvanceToolsActivity.this,SmsBackupActivity.class));
 		finish();
 	}
+
+	/**
+	 * 跳转到地址查询的界面
+	 * @param view
+	 */
+	public void softLock(View view){
+		startActivity(new Intent(AdvanceToolsActivity.this,SoftLockActivity.class));
+		finish();
+	}
 }

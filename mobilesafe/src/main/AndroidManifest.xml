@@ -7,7 +7,7 @@
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="18" />
-
+    <!--权限的声明-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -28,8 +28,12 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 杀死进程的权限 -->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-
+    <!-- 创建快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <!-- 读取Sdcard内容 -->
     <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
@@ -47,7 +51,13 @@
             </intent-filter>
         </activity>
         <!-- 主界面 -->
-        <activity android:name=".activity.HomeAcivity" />
+        <activity android:name=".activity.HomeAcivity">
+            <intent-filter>
+                <action android:name="com.tofirst.mobilesafe.home" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <!-- 设置页面 -->
         <activity android:name=".activity.SettingActivity" />
         <!-- 防盗页面 -->
@@ -81,6 +91,12 @@
         <activity android:name=".activity.ProgressMannagerActivity" />
         <!-- 进程管理设置界面 -->
         <activity android:name=".activity.ProgressSettingActivity" />
+        <!-- 程序锁的界面 -->
+        <activity android:name=".activity.SoftLockActivity" />
+        <!--看萌狗的界面-->
+        <activity android:name=".activity.WatchDogActivity"
+            />
+
         <!-- receier -->
         <receiver android:name=".receiver.BootCheckSimRecevier">
             <intent-filter>
@@ -129,6 +145,15 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/process_widget_provider" />
         </receiver>
+        <!--杀死所有进程的广播-->
+        <receiver
+            android:name=".receiver.KillAllProcessReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.tofirst.killallprocess" />
+            </intent-filter>
+        </receiver>
         <!-- service -->
         <service android:name=".service.LocationService" />
         <service android:name=".service.AddressService" />
@@ -157,15 +182,15 @@
             android:name=".service.UpdateWidgetService"
             android:enabled="true"
             android:exported="true" />
-
-        <receiver
-            android:name=".receiver.KillAllProcessReceiver"
+        <!--看门狗的服务-->
+        <service
+            android:name=".service.WatchDogService"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.tofirst.killallprocess" />
-            </intent-filter>
-        </receiver>
+            android:exported="true"></service>
+
+
+
+
     </application>
 
 </manifest>

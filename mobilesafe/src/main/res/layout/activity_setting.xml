@@ -40,6 +40,13 @@
         tofirst:desc_off="黑名单拦截已关闭"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <com.tofirst.mobilesafe.view.SettingWatchDogItemView
+        android:id="@+id/rl_setting_WatchDog"
+        tofirst:title="看萌狗是否开启"
+        tofirst:desc_on="看萌狗已开启"
+        tofirst:desc_off="看萌狗已关闭"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>
