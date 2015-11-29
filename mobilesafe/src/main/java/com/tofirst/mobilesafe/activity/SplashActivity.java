@@ -128,6 +128,7 @@ public class SplashActivity extends Activity {
 
         // 复制数据库到files目录下
         copyDb("address.db");
+        copyDb("antivirus.db");
         // 更新页面的版本内容
         tv_vesion.setText(getVersionName());
         // 检查是否有新的版本
@@ -383,7 +384,7 @@ public class SplashActivity extends Activity {
         System.out.println("---" + getFilesDir());
         FileOutputStream out = null;
         try {
-            in = getAssets().open("address.db");
+            in = getAssets().open(dbname);
             out = new FileOutputStream(destfile);
             int len = 0;
             byte[] data = new byte[1024];

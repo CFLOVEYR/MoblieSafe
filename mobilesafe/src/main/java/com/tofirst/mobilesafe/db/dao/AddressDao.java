@@ -66,6 +66,8 @@ public class AddressDao {
 					address = cursor2.getString(0);
 					cursor2.close();
 				}
+				//关闭数据库
+				db.close();
 			}
 			break;
 		}

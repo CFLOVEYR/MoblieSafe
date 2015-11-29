@@ -35,7 +35,11 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <!-- 读取Sdcard内容 -->
     <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <!--获取包缓存大小-->
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE"/>
+    <!--清理程序缓存-->
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE"/>
+    <uses-permission android:name="android.permission.MASTER_CLEAR"/>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -97,10 +101,9 @@
         <activity
             android:name=".activity.WatchDogActivity"
             android:excludeFromRecents="true"
-            android:launchMode="singleInstance">
-        </activity>
-        <!--流量统计的界面-->
-        <activity android:name=".activity.TrafficStatisticActivity"></activity>
+            android:launchMode="singleInstance" />
+        <!-- 流量统计的界面 -->
+        <activity android:name=".activity.TrafficStatisticActivity" />
         <!-- receier -->
         <receiver android:name=".receiver.BootCheckSimRecevier">
             <intent-filter>
@@ -170,6 +173,7 @@
             android:name=".service.CallSmsSafeService"
             android:enabled="true"
             android:exported="true" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -187,6 +191,9 @@
             android:name=".service.WatchDogService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".activity.AntiVirusActivity" />
+        <activity android:name=".activity.CleanCacheActivity"></activity>
     </application>
 
 </manifest>

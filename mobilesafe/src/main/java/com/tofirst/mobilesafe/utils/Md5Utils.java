@@ -13,7 +13,7 @@ public class Md5Utils {
 	public static String psdMD5(String str){
 		String ss;
 		try {
-			String token=str+NamePace.MD5ADDSTRING;
+			String token=str;
 		    MessageDigest md = MessageDigest.getInstance("MD5");
 		    byte[] md5 = md.digest(token.getBytes());
 		    ss=new String(md5);
