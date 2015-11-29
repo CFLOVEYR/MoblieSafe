@@ -1,7 +1,9 @@
 package com.tofirst.mobilesafe.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,6 +13,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.tofirst.mobilesafe.R;
 
 public class WatchDogActivity extends Activity implements View.OnClickListener {
+    private static final String TAG ="Test" ;
     @ViewInject(R.id.bt_dog_num0)
     private Button bt_dog_num0;
     @ViewInject(R.id.bt_dog_num1)
@@ -40,12 +43,14 @@ public class WatchDogActivity extends Activity implements View.OnClickListener {
     @ViewInject(R.id.et_dog)
     private EditText et_dog;
     private StringBuffer sb;
+    private String packageName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_dog);
         ViewUtils.inject(this);
+        packageName = getIntent().getStringExtra("packageName");
         sb = new StringBuffer();
         bt_dog_num0.setOnClickListener(this);
         bt_dog_num1.setOnClickListener(this);
@@ -97,7 +102,8 @@ public class WatchDogActivity extends Activity implements View.OnClickListener {
                 sb.append(9);
                 break;
             case R.id.bt_dog_clean:
-                et_dog.setText("");
+                sb.delete(0,sb.length()-1);
+                Log.d(TAG, "---"+sb.toString());
                 break;
             case R.id.bt_dog_delete:
                 if (sb.length() >0) {
@@ -107,6 +113,10 @@ public class WatchDogActivity extends Activity implements View.OnClickListener {
             case R.id.bt_dog_yes:
                 if ("123".equals(et_dog.getText().toString())) {
                     finish();
+                    Intent intent=new Intent();
+                    intent.setAction("com.tofirst.mobilesafe.closelock");
+                    intent.putExtra("packagename", packageName);
+                    sendBroadcast(intent);
                 }
                 break;
             default:
@@ -118,4 +128,19 @@ public class WatchDogActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    /**
+     *  返回的时候不让他一闪一闪的
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+//        <action android:name="android.intent.action.MAIN" />
+//        <category android:name="android.intent.category.HOME" />
+//        <category android:name="android.intent.category.DEFAULT" />
+//        <category android:name="android.intent.category.MONKEY"/>
+        Intent intent=new Intent();
+        intent.setAction("android.intent.action.MAIN");
+        intent.addCategory("android.intent.category.HOME");
+        startActivity(intent);
+    }
 }

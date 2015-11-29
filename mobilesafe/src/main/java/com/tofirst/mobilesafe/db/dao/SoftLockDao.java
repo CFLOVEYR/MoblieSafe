@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 
 import com.tofirst.mobilesafe.bean.SoftManangerInfo;
 
@@ -15,8 +16,11 @@ import java.util.List;
  */
 public class SoftLockDao  {
     private final SoftLockDBOpenHelper dbOpenHelper;
-
+    private final Uri uri;
+    private  Context context;
     public SoftLockDao(Context context) {
+        this.context=context;
+        uri = Uri.parse("content://com.tofirst.mobilesafe.lockobserver");
         dbOpenHelper = new SoftLockDBOpenHelper(context);
     }
 
@@ -26,6 +30,7 @@ public class SoftLockDao  {
      * @return
      */
     public void insert(String name){
+        context.getContentResolver().notifyChange(uri,null);
         SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("name",name);
@@ -38,6 +43,7 @@ public class SoftLockDao  {
      * @param name
      */
     public void delete(String name){
+        context.getContentResolver().notifyChange(uri,null);
         SQLiteDatabase db = dbOpenHelper.getWritableDatabase();
         db.delete("softlock","name = ?",new String[]{name});
         db.close();
