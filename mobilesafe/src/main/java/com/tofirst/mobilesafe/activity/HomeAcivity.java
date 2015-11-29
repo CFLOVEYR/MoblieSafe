@@ -28,7 +28,7 @@ public class HomeAcivity extends Activity {
 	protected static final int ADVANCED_TOOLS = 7;// 高级工具
 	protected static final int CLEAN_CACHE = 6;// 缓存清理
 	protected static final int MOBILE_SECURITY = 5;// 手机杀毒
-	protected static final int SUMMARY_FLOW = 4;// 流量统计
+	protected static final int TRIFFIC_STATASTICS = 4;// 流量统计
 	protected static final int PROCESS_MANNAGER = 3;// 进程管理
 	protected static final int SOFT_MANNAGER = 2;// 软件管理
 	protected static final int NET_SAFE = 1;// 通讯卫士
@@ -77,9 +77,9 @@ public class HomeAcivity extends Activity {
 					startActivity(new Intent(HomeAcivity.this,
 							ProgressMannagerActivity.class));
 					break;
-				case SUMMARY_FLOW:
+				case TRIFFIC_STATASTICS:
 					startActivity(new Intent(HomeAcivity.this,
-							SettingActivity.class));
+							TrafficStatisticActivity.class));
 					break;
 				case MOBILE_SECURITY:
 					startActivity(new Intent(HomeAcivity.this,
